@@ -2,24 +2,20 @@
 #include <vector>
 #include <string>
 #include<sstream>
-matrix::Matrix::Matrix(int rows,int cols) :
-	rows(rows), cols(cols), matrix(rows, Row(cols))
-{
 
-}
 matrix::Matrix::Matrix(int rows, int cols, Generator* generator):
 	rows(rows), cols(cols),generator(generator), matrix(rows,Row(cols))
 {
 	if (rows <= 0 or cols <= 0 or generator==nullptr) {
 		throw std::out_of_range("Error");
 	}	
-	else{
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				matrix[i][j] = generator->generate();
-			}
+	
+	for (size_t i = 0; i < rows; i++) {
+		for (size_t j = 0; j < cols; j++) {
+			matrix[i][j] = generator->generate();
 		}
 	}
+	
 	
 }
 
@@ -37,9 +33,11 @@ std::string matrix::Matrix::MatrixToString()
 	}
 	return buffer.str();
 }
-Row& matrix::Matrix::operator[](const int index)
+Row& matrix::Matrix::operator[](const size_t index)
 {
-	return matrix[index];
+	if (index < matrix.size()) {
+		return matrix[index];
+	}
 }
 
 int matrix::Matrix::Get_rows()

@@ -5,12 +5,14 @@
  
 class Task {
 public:
-	Task(matrix::Matrix matrix);
+	Task(matrix::Matrix matrix,Generator* generator);
 	matrix::Matrix getTask1();
 	int getMinElement();
 	matrix::Matrix getTask2();
-	bool isNumberInVector(const std::vector<int>& vec, int number);
+	bool contains(int number);
+	std::vector<int> CountNewMatrixRows();
 private:
 	matrix::Matrix matrix;
-	
+	Generator* generator;
+	std::vector<int>odd;
 };
